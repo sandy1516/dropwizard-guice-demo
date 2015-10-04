@@ -31,11 +31,7 @@ public class UserResource {
     @Path("create")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public User addUser(@Valid User model) {
-        User user = new User();
-        user.setName(model.getName());
-        user.setLogin(model.getLogin());
-        user.setPassword(model.getPassword());
+    public User addUser(@Valid User user) {
         System.out.println(user.toString());
         return userDao.save(user);
     }
