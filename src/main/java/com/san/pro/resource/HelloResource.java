@@ -1,3 +1,7 @@
+/**
+ * Created by Sandeep Singh on 03-10-2015.
+ */
+
 package com.san.pro.resource;
 
 import com.san.pro.config.MessagesConfiguration;
@@ -6,11 +10,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
-import javax.ws.rs.core.MediaType;
 
-/**
- * Created by Administrator on 03-10-2015.
- */
 @Path(value = "/hello")
 public class HelloResource {
 

@@ -1,20 +1,20 @@
+/**
+ * Created by Sandeep Singh on 03-10-2015.
+ */
+
 package com.san.pro.model;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-/**
- * Created by Administrator on 03-10-2015.
- */
+@Entity
+@Table(name = "user")
 public class User {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="id", precision=0)
     private long id;
 

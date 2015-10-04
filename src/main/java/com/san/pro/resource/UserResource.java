@@ -1,3 +1,7 @@
+/**
+ * Created by Sandeep Singh on 03-10-2015.
+ */
+
 package com.san.pro.resource;
 
 import com.san.pro.dao.UserDao;
@@ -23,7 +27,8 @@ public class UserResource {
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public User getUser(@PathParam("id") long id) {
+    public User getUser(@PathParam("id") long id)
+    {
         return userDao.getById(id);
     }
 
@@ -32,7 +37,6 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public User addUser(@Valid User user) {
-//        System.out.println(user.toString());
         return userDao.save(user);
     }
 

@@ -1,18 +1,16 @@
+/**
+ * Created by Sandeep Singh on 03-10-2015.
+ */
+
 package com.san.pro.dao;
 
-//import com.google.inject.persist.Transactional;
 import com.san.pro.model.User;
+import javax.persistence.*;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-/**
- * Created by Administrator on 03-10-2015.
- */
 public class UserDaoImpl implements UserDao{
 
-    @PersistenceContext
-    private EntityManager em;
+    EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default");
+    private EntityManager em = entityManagerFactory.createEntityManager();
 
     @Override
     public User getById(long id) {
@@ -20,15 +18,15 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-//    @Transactional
-
     public User save(User user) {
         try {
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
             em.persist(user);
+            tx.commit();
         } catch(Exception e) {
             e.printStackTrace();
         }
-
         return user;
     }
 }
