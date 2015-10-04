@@ -32,7 +32,7 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public User addUser(@Valid User user) {
-        System.out.println(user.toString());
+//        System.out.println(user.toString());
         return userDao.save(user);
     }
 
