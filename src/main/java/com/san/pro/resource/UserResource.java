@@ -4,7 +4,6 @@
 
 package com.san.pro.resource;
 
-import com.san.pro.*;
 import com.san.pro.Error;
 import com.san.pro.dao.UserDao;
 import com.san.pro.model.User;
@@ -14,7 +13,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.text.NumberFormat;
+import java.util.List;
 
 @Path("/user")
 @Produces(MediaType.APPLICATION_JSON)
@@ -28,6 +27,15 @@ public class UserResource {
         this.userDao = userDao;
     }
 
+    @POST
+    @Path("create")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response addUser(@Valid User user) {
+        userDao.save(user);
+        return Response.status(Response.Status.CREATED).entity(user).build();
+    }
+
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -38,9 +46,8 @@ public class UserResource {
             User user = userDao.getById(id);
             if(user == null) {
                 com.san.pro.Error error = new Error();
-                error.setMessage("Entity not found");
+                error.setMessage("Entity not found for id: " + id);
                 return Response.status(Response.Status.NOT_FOUND).entity(error).build();
-                //return Response.status(Response.Status.NOT_FOUND).entity("Entity not found for id: " + id).build();
             }
             return Response.status(Response.Status.OK).entity(user).build();
         } catch(NumberFormatException ex) {
@@ -50,13 +57,23 @@ public class UserResource {
         }
     }
 
-    @POST
-    @Path("create")
-    @Consumes(MediaType.APPLICATION_JSON)
+    @GET
+    @Path("getAll")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response addUser(@Valid User user) {
-
-        return Response.status(Response.Status.CREATED).entity(user).build();
+    public Response getAllUsers()
+    {
+        try {
+            List<User> userList = userDao.getAllUsers();
+            if(userList == null) {
+                com.san.pro.Error error = new Error();
+                error.setMessage("No Record found");
+                return Response.status(Response.Status.NOT_FOUND).entity(error).build();
+            }
+            return Response.status(Response.Status.OK).entity(userList).build();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+            return Response.status(Response.Status.BAD_REQUEST).build();
+        }
     }
 
 }
